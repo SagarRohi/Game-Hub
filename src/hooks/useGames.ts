@@ -21,18 +21,24 @@ interface FetchGamesResponse {
 const useGames=()=>{
   const [games, setGames] = useState<Game[]>([]);
   const [error,setError]=useState<AxiosError>();
+  const [isLoading,setLoading]=useState(false);
+
   useEffect(() => {
     const controller=new AbortController();
+    setLoading(true);
     apiClient
       .get<FetchGamesResponse>("/games")
       .then((res) => {
-        console.log(res);
-        if(res.data) setGames(res.data.results);
+        setGames(res.data.results);
+        setLoading(false);
       })
-      .catch((err ) => setError(err));
+      .catch((err ) =>{
+        setError(err)
+        setLoading(false);
+      });
 
       return ()=>controller.abort();
   }, []);
-  return {games,setGames,error};
+  return {games,setGames,error,isLoading};
 }
 export default useGames;
