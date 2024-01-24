@@ -14,7 +14,6 @@ const useData = <T>(
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState<AxiosError>();
   const [isLoading, setLoading] = useState(false);
-
   useEffect(
     () => {
       const controller = new AbortController();
@@ -30,7 +29,6 @@ const useData = <T>(
         })
         .catch((err) => {
           if (!(err instanceof CanceledError)) setError(err);
-          setLoading(false);
         });
 
       return () => controller.abort();

@@ -11,6 +11,7 @@ interface Props {
 }
 function GameGrid({ gameQuery }: Props) {
   const { data, error, isLoading } = useGames(gameQuery);
+ 
   return (
     <>
       {error && <Text>{error.message}</Text>}
