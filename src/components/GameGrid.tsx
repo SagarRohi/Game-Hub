@@ -7,11 +7,11 @@ import { GameQuery } from "../App";
 const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
 interface Props {
-   gameQuery:GameQuery
+  gameQuery: GameQuery;
 }
 function GameGrid({ gameQuery }: Props) {
   const { data, error, isLoading } = useGames(gameQuery);
- 
+
   return (
     <>
       {error && <Text>{error.message}</Text>}
@@ -26,7 +26,7 @@ function GameGrid({ gameQuery }: Props) {
               <GameCardSkeleton />
             </GameCardContainer>
           ))}
-        {data.map((game) => {
+        {data?.results.map((game) => {
           return (
             <GameCardContainer key={game.id}>
               <GameCard game={game} />
